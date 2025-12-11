@@ -1,4 +1,6 @@
-public class UndegraduateEnrollment {
+public class UndegraduateEnrollment extends Enrollment {
+    private String programme;
+    private int studyYear;
 
     
 }
