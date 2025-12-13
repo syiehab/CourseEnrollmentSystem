@@ -2,7 +2,7 @@ public class Enrollment {
     private String enrollID;
     private String courseCode;
     private String studentName;
-    private String semester;
+    private String Semester;
 
     public Enrollment(String ID, String Course, String Student, String Sem){
         String enrollID = ID;
@@ -22,7 +22,7 @@ public class Enrollment {
         return studentName;
     }
     public String getSem(){
-        return semester;
+        return Semester;
     }
 
     public void setID(String newID){
@@ -36,6 +36,13 @@ public class Enrollment {
     }
     public void setSemester(String newSem){
         this.courseCode = newSem;
+    }
+
+    public String toString(){
+        return "Enrollment ID: " + enrollID +
+                "\nCourse Code: " + courseCode + 
+                "\nStudent Name: " + studentName +
+                "\nSemester: " + Semester;
     }
 
 }
