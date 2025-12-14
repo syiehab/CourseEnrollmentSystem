@@ -1,8 +1,8 @@
-public class UndegraduateEnrollment extends Enrollment {
+public class UndergraduateEnrollment extends Enrollment {
     private String programme;
     private int studyYear;
 
-    public UndegraduateEnrollment(String enrollID, String courseCode, String studentName, String Semester, String programme, int studyYear){
+    public UndergraduateEnrollment(String enrollID, String courseCode, String studentName, String Semester, String programme, int studyYear){
         super(enrollID, courseCode, studentName, Semester);
         this.programme = programme;
         this.studyYear = studyYear;
@@ -24,8 +24,8 @@ public class UndegraduateEnrollment extends Enrollment {
 
     @Override
     public String toString(){
-        super.toString();
-        return "Programme: " + programme +
+        return super.toString() +
+        "Programme: " + programme +
                 "\nStudy Year: " + studyYear;
     }
 }
