@@ -5,10 +5,10 @@ public class Enrollment {
     private String Semester;
 
     public Enrollment(String ID, String Course, String Student, String Sem){
-        String enrollID = ID;
-        String courseCode = Course;
-        String studentName = Student;
-        String Semester = Sem;
+        this.enrollID = ID;
+        this.courseCode = Course;
+        this.studentName = Student;
+        this.Semester = Sem;
         
     }
 
@@ -37,6 +37,8 @@ public class Enrollment {
     public void setSemester(String newSem){
         this.courseCode = newSem;
     }
+
+    @Override
 
     public String toString(){
         return "Enrollment ID: " + enrollID +
