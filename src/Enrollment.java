@@ -5,10 +5,10 @@ public class Enrollment {
     private String Semester;
 
     public Enrollment(String enrollID, String courseCode, String studentName, String Semester){
-        this.enrollID = enrollID;
-        this.courseCode = courseCode;
-        this.studentName = studentName;
-        this.Semester = Semester;
+        this.enrollID = enrollID.toUpperCase();
+        this.courseCode = courseCode.toUpperCase();
+        this.studentName = studentName.toUpperCase();
+        this.Semester = Semester.toUpperCase();
         
     } 
 
@@ -35,7 +35,7 @@ public class Enrollment {
         this.studentName = newStudent;
     }
     public void setSemester(String newSem){
-        this.courseCode = newSem;
+        this.Semester = newSem;
     }
 
     @Override

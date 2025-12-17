@@ -3,13 +3,13 @@ public class EnrollmentManager {
     private int count = 0;
     InputManager input = new InputManager();
 
-    public void addTestData(){
+    public void addTestData(){ // For adding test data
         enrollments[0] = new UndergraduateEnrollment("cs01085330", "chdg2342", "ali", "2", "Computer Science", 2);
         enrollments[1] = new PostgraduateEnrollment("cs01085331", "math3456", "abu", "2", "Data Science", "Dr. Brown");
         enrollments[2] = new UndergraduateEnrollment("cs01085332", "math3456", "jamal", "2", "Data Science", 1);
         count = 3;
     }
-    public void showMenu(){
+    public void showMenu(){ // Print menu options
         System.out.println("\n=== Course Enrollment System ===");
         System.out.println("1. Add Enrollment");
         System.out.println("2. Delete Enrollment");
@@ -20,7 +20,7 @@ public class EnrollmentManager {
         System.out.print("Choose: ");
     }
 
-    public void addEnrollment() {
+    public void addEnrollment() { // Add new enrollment into array
         if(count>=enrollments.length) {
             System.err.println("The enrollment is full");
             return;
@@ -74,7 +74,7 @@ public class EnrollmentManager {
 
     }
     
-    public void deleteEnrollment() {
+    public void deleteEnrollment() { // Delete enrollment from array
         String id = input.readEnrollID("Enter enrollment ID to delete: ");
 
         for (int i = 0; i < count; i++) {
@@ -91,108 +91,121 @@ public class EnrollmentManager {
         System.out.println("Enrollment ID not found.");
     }
 
-    public void updateEnrollment(){
+    public void updateEnrollment(){ // Update existing enrollment (course code, program/year or research area/supervisor)
         String id = input.readEnrollID("Enter enrollment ID to update: ");
 
         int index = -1;
-        for (int i = 0; i < count; i++) {
+
+        for (int i = 0; i < count; i++) { // to find the enrollment by ID
             if (enrollments[i].getID().equals(id)) {
-                index = i;
+                index = i; // Get the matching enrollment index
                 break;
             }
         }
-        if (index == -1){
+
+        if (index == -1){ // If none found; index remains -1, show error message
             System.out.println("Enrollment ID not found.");
             return;
         }
 
-        Enrollment old = enrollments[index];
+        Enrollment oldEnrollment = enrollments[index];
         System.out.println("Enrollment found. Proceed to update.\n");
-        String newCourse = input.readCourseCode("Enter new course code: ");
-        if (old instanceof UndergraduateEnrollment) {
+        String newCourse = input.readCourseCode("Enter new course code: "); // Get new course code
+
+        if (oldEnrollment instanceof UndergraduateEnrollment) {  // Check enrollment type
             String newProgram = input.readString("Enter new program name: ");
             int newYear = input.readInt("Enter new study year: ");
-            enrollments[index] = new UndergraduateEnrollment(old.getID(), newCourse, old.getStudent(), old.getSem(), newProgram, newYear);
-        } else if (old instanceof PostgraduateEnrollment) {
+            enrollments[index] = new UndergraduateEnrollment(oldEnrollment.getID(), newCourse, oldEnrollment.getStudent(), oldEnrollment.getSem(), newProgram, newYear);
+
+        } else if (oldEnrollment instanceof PostgraduateEnrollment) {
             String newResearchArea = input.readString("Enter new research area: ");
             String newSupervisorName = input.readString("Enter new supervisor name: ");
-            enrollments[index] = new PostgraduateEnrollment(old.getID(), newCourse, old.getStudent(), old.getSem(), newResearchArea, newSupervisorName);
+            enrollments[index] = new PostgraduateEnrollment(oldEnrollment.getID(), newCourse, oldEnrollment.getStudent(), oldEnrollment.getSem(), newResearchArea, newSupervisorName);
         }
         
     }
 
 
-public void displayEnrollment(int filterType) {
-    String filterValue = "";
+    public void displayEnrollment(int filterType) {
+        String filterValue = null;
 
-    switch (filterType) {
-        case 1:
-            filterValue = input.readString("Enter student name: ");
-            break;
-        case 2:
-            filterValue = input.readCourseCode("Enter course code: ");
-            break;
-        case 3:
-            filterValue = input.readString("Enter semester: ");
-            break;
-        case 4:
-            filterValue = input.readString("Enter level (UG/PG): ").toLowerCase(); // Normalize to lowercase for comparison
-            break;
-        case 5:
-            viewAll();
-            return;
-        default:
-            System.out.println("Invalid filter type.");
-            return;
-    }
-
-    int num = 0;
-    boolean found = false;
-    for (int i = 0; i < count; i++) {
-        Enrollment e = enrollments[i];
-        boolean matches = false;
         switch (filterType) {
             case 1:
-                String studentName = e.getStudent().toLowerCase();
-                matches = studentName.equals(filterValue);
+                filterValue = input.readString("Enter student name: ");
                 break;
-
             case 2:
-                String courseCode = e.getCourse().toLowerCase();
-                matches = courseCode.equals(filterValue);
+                filterValue = input.readCourseCode("Enter course code: ");
                 break;
             case 3:
-                String semester = e.getSem().toLowerCase();
-                matches = semester.equals(filterValue);
+                filterValue = input.readString("Enter semester: ");
                 break;
             case 4:
-                if (filterValue.equals("ug") && e instanceof UndergraduateEnrollment) {
-                    matches = true;
-                } else if (filterValue.equals("pg") && e instanceof PostgraduateEnrollment) {
-                    matches = true;
-                }
+                filterValue = input.readString("Enter level (UG/PG): ");
                 break;
-
+            case 5: 
+                viewAll();
+                return;
             default:
                 System.out.println("Invalid filter type.");
                 return;
         }
 
-        if (matches){
-            num += 1;
-            if (num == 1) {
-                System.out.println("\n\n====Filtered Enrollment List====");
-                found = true;
+        if (filterValue == null) { // Input validation
+            System.out.println("Invalid input. Please try again.");
+            return;
+        }
+
+        filterValue = filterValue.toUpperCase();
+
+        int num = 0; // to count number of matched records
+        boolean found = false;
+
+        for (int i = 0; i < count; i++) { // Loop through enrollments
+            Enrollment e = enrollments[i]; // current enrollment object
+            boolean matches = false; // to check if it matches the filter
+            switch (filterType) {
+                case 1:
+                    String studentName = e.getStudent();
+                    matches = studentName.equals(filterValue);
+                    break;
+
+                case 2:
+                    String courseCode = e.getCourse();
+                    matches = courseCode.equals(filterValue);
+                    break;
+                case 3:
+                    String semester = e.getSem();
+                    matches = semester.equals(filterValue);
+                    break;
+                case 4:
+                    if (filterValue.equals("UG") && e instanceof UndergraduateEnrollment) {
+                        matches = true;
+                    } else if (filterValue.equals("PG") && e instanceof PostgraduateEnrollment) {
+                        matches = true;
+                    }
+                    break;
+
+                default:
+                    System.out.println("Invalid filter type.");
+                    return;
             }
-            System.out.println("\n------Record " + (num) + " ------");
-            System.out.println(e);
+
+            if (matches){ // if matched, display the enrollment
+                num += 1;
+                if (num == 1) { // if first matched record, print header
+                    System.out.println("\n\n====Filtered Enrollment List====");
+                    found = true;
+                }
+                System.out.println("\n------Record " + (num) + " ------"); // display numbered record
+                System.out.println(e); // print current enrollment details 
+            }
+        }
+        if (!found) { // if no records matched, show message
+            System.out.println("No enrollments found matching the criteria.");
         }
     }
-    if (!found) {
-        System.out.println("No enrollments found matching the criteria.");
-    }
-}
-    public void viewAll() {
+
+    public void viewAll() { // View all enrollments
             if(count==0) {
                 System.out.println("The enrollment list is empty");
                 return;
@@ -206,7 +219,7 @@ public void displayEnrollment(int filterType) {
         }
 
 
-    public void displayStatistics(){
+    public void displayStatistics(){ // Display total number of UG and PG enrollments
         int pgCount = 0;
         int ugCount = 0;
         for (int i = 0; i < count; i++){
