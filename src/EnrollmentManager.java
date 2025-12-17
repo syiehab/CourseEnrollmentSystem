@@ -25,7 +25,6 @@ public class EnrollmentManager {
             System.err.println("The enrollment is full");
             return;
         }
-
         String id = input.readEnrollID("Enter enrollment ID: ");
         if (id == null) {
             System.out.println("Invalid ID input. Please try again.");

@@ -12,34 +12,17 @@ public class Enrollment {
         
     } 
 
-    public String getID(){
-        return enrollID;
-    }
-    public String getCourse(){
-        return courseCode;
-    }
-    public String getStudent(){
-        return studentName;
-    }
-    public String getSem(){
-        return Semester;
-    }
+    public String getID(){return enrollID;}
+    public String getCourse(){return courseCode;}
+    public String getStudent(){return studentName;}
+    public String getSem(){return Semester;}
 
-    public void setID(String newID){
-        this.enrollID = newID;
-    }
-    public void setCourse(String newCourse){
-        this.courseCode = newCourse;
-    }
-    public void setStudent(String newStudent){
-        this.studentName = newStudent;
-    }
-    public void setSemester(String newSem){
-        this.Semester = newSem;
-    }
+    public void setID(String newID){this.enrollID = newID;}
+    public void setCourse(String newCourse){this.courseCode = newCourse;}
+    public void setStudent(String newStudent){this.studentName = newStudent;}
+    public void setSemester(String newSem){this.Semester = newSem;}
 
     @Override
-
     public String toString(){
         return "\nEnrollment ID: " + enrollID +
                 "\nCourse Code: " + courseCode + 

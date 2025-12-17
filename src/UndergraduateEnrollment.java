@@ -8,19 +8,11 @@ public class UndergraduateEnrollment extends Enrollment {
         this.studyYear = studyYear;
     }
 
-    public String setProgramme(){
-        return programme;
-    }
-    public int setStudyYear(){
-        return studyYear;
-    }
+    public String getProgramme(){return programme;}
+    public int getStudyYear(){return studyYear;}
 
-    public void getProgramme(String newProgramme){
-        this.programme = newProgramme;
-    }
-    public void getStudyYear(int newStudyYear){
-        this.studyYear = newStudyYear;
-    }
+    public void setProgramme(String newProgramme){this.programme = newProgramme;}
+    public void setStudyYear(int newStudyYear){this.studyYear = newStudyYear;}
 
     @Override
     public String toString(){

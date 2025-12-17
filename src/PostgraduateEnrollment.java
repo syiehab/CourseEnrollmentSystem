@@ -11,22 +11,14 @@ public class PostgraduateEnrollment extends Enrollment {
     }
 
     
-    public String getResearchArea() {
-        return researchArea;
-    }
+    public String getResearchArea() {return researchArea;}
 
-    public String getSupervisorName() {
-        return supervisorName;
-    }
+    public String getSupervisorName() {return supervisorName;}
 
     
-    public void setResearchArea(String newResearchArea) {
-        this.researchArea = newResearchArea;
-    }
+    public void setResearchArea(String newResearchArea) {this.researchArea = newResearchArea;}
 
-    public void setSupervisorName(String newSupervisorName) {
-        this.supervisorName = newSupervisorName;
-    }
+    public void setSupervisorName(String newSupervisorName) {this.supervisorName = newSupervisorName;}
 
     @Override
     public String toString() {
