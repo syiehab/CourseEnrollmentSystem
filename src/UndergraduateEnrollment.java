@@ -24,8 +24,9 @@ public class UndergraduateEnrollment extends Enrollment {
 
     @Override
     public String toString(){
-        return super.toString() +
-        "Programme: " + programme +
+        return super.toString() + 
+                "\nLevel: Undergraduate" +
+                "\nProgramme: " + programme +
                 "\nStudy Year: " + studyYear;
     }
 }

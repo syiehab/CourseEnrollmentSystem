@@ -4,13 +4,13 @@ public class Enrollment {
     private String studentName;
     private String Semester;
 
-    public Enrollment(String ID, String Course, String Student, String Sem){
-        this.enrollID = ID;
-        this.courseCode = Course;
-        this.studentName = Student;
-        this.Semester = Sem;
+    public Enrollment(String enrollID, String courseCode, String studentName, String Semester){
+        this.enrollID = enrollID;
+        this.courseCode = courseCode;
+        this.studentName = studentName;
+        this.Semester = Semester;
         
-    }
+    } 
 
     public String getID(){
         return enrollID;
@@ -41,7 +41,7 @@ public class Enrollment {
     @Override
 
     public String toString(){
-        return "Enrollment ID: " + enrollID +
+        return "\nEnrollment ID: " + enrollID +
                 "\nCourse Code: " + courseCode + 
                 "\nStudent Name: " + studentName +
                 "\nSemester: " + Semester;

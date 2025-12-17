@@ -4,7 +4,7 @@
 
         // static Scanner sc = new Scanner(System.in);
         static EnrollmentManager manager = new EnrollmentManager();
-        static InputManager input = new InputManager();
+        private InputManager input = new InputManager();
         public static void main(String[] args) {
             int choice;
             System.out.println("Welcome to Course Enrollment");
@@ -14,7 +14,7 @@
             manager.addTestData(); // Add this line to include test data
             while (true) {
                 manager.showMenu();
-                choice = input.readInt("");
+                choice = input.readInt();
                 switch (choice) {
                 case 1 :
                     manager.addEnrollment();
