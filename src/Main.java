@@ -24,7 +24,7 @@
                     manager.updateEnrollment();
                     break;
                 case 4:
-                    System.out.println("Choose to view by: ");
+                    System.out.println("\nChoose to view by: ");
                     System.out.println("1. Student Name");
                     System.out.println("2. Course code");
                     System.out.println("3. Semester");

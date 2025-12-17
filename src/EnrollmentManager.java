@@ -132,10 +132,10 @@ public void displayEnrollment(int filterType) {
             filterValue = input.readCourseCode("Enter course code: ");
             break;
         case 3:
-            filterValue = input.readNonEmpty("Enter semester: ");
+            filterValue = input.readString("Enter semester: ");
             break;
         case 4:
-            filterValue = input.readNonEmpty("Enter level (UG/PG): ").toLowerCase(); // Normalize to lowercase for comparison
+            filterValue = input.readString("Enter level (UG/PG): ").toLowerCase(); // Normalize to lowercase for comparison
             break;
         case 5:
             viewAll();
@@ -145,11 +145,11 @@ public void displayEnrollment(int filterType) {
             return;
     }
 
+    int num = 0;
+    boolean found = false;
     for (int i = 0; i < count; i++) {
         Enrollment e = enrollments[i];
         boolean matches = false;
-        boolean found = false;
-        int num = 0;
         switch (filterType) {
             case 1:
                 String studentName = e.getStudent().toLowerCase();
@@ -157,15 +157,13 @@ public void displayEnrollment(int filterType) {
                 break;
 
             case 2:
-                String semester = e.getSem().toLowerCase();
-                matches = semester.equals(filterValue);
-                break;
-
-            case 3:
                 String courseCode = e.getCourse().toLowerCase();
                 matches = courseCode.equals(filterValue);
                 break;
-
+            case 3:
+                String semester = e.getSem().toLowerCase();
+                matches = semester.equals(filterValue);
+                break;
             case 4:
                 if (filterValue.equals("ug") && e instanceof UndergraduateEnrollment) {
                     matches = true;
@@ -182,17 +180,15 @@ public void displayEnrollment(int filterType) {
         if (matches){
             num += 1;
             if (!found) {
-                System.out.println("====Filtered Enrollment List====");
+                System.out.println("\n\n====Filtered Enrollment List====");
                 found = true;
-            System.out.println("------Record " + (num) + " ------");
+            }
+            System.out.println("\n------Record " + (num) + " ------");
             System.out.println(e);
-
-            }
-            if (!found) {
-                System.out.println("No enrollments found matching the criteria.");
-            }
         }
-
+    }
+    if (!found) {
+        System.out.println("No enrollments found matching the criteria.");
     }
 }
     public void viewAll() {
