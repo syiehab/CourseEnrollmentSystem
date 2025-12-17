@@ -4,9 +4,9 @@ public class EnrollmentManager {
     InputManager input = new InputManager();
 
     public void addTestData(){
-        enrollments[0] = new UndergraduateEnrollment("cs00190123", "chdg2342", "Alice Smith", "2", "Computer Science", 2);
-        enrollments[1] = new PostgraduateEnrollment("pg00280123", "math3456", "Bob Johnson", "2", "Data Science", "Dr. Brown");
-        enrollments[2] = new UndergraduateEnrollment("pg00280123", "math3456", "Bob Johnson", "2", "Data Science", 1);
+        enrollments[0] = new UndergraduateEnrollment("cs01085330", "chdg2342", "ali", "2", "Computer Science", 2);
+        enrollments[1] = new PostgraduateEnrollment("cs01085331", "math3456", "abu", "2", "Data Science", "Dr. Brown");
+        enrollments[2] = new UndergraduateEnrollment("cs01085332", "math3456", "jamal", "2", "Data Science", 1);
         count = 3;
     }
     public void showMenu(){
@@ -26,9 +26,25 @@ public class EnrollmentManager {
         }
 
         String id = input.readEnrollID("Enter enrollment ID: ");
+        if (id == null) {
+            System.out.println("Invalid ID input. Please try again.");
+            return;
+        }
         String course = input.readCourseCode("Enter Course code: ");
+        if (course == null) {
+            System.out.println("Invalid course code input. Please try again.");
+            return;
+        }
         String name = input.readString("Enter student name: ");
+        if (name == null) {
+            System.out.println("Invalid name input. Please try again.");
+            return;
+        }
         String sem = input.readString("Enter semester: ");
+        if (sem == null) {
+            System.out.println("Invalid semester input. Please try again.");
+            return;
+        }
 
         System.out.println("Choose your level: ");
         System.out.println("1. Under Graduate");
@@ -77,13 +93,31 @@ public class EnrollmentManager {
     public void updateEnrollment(){
         String id = input.readEnrollID("Enter enrollment ID to update: ");
 
+        int index = -1;
         for (int i = 0; i < count; i++) {
             if (enrollments[i].getID().equals(id)) {
-            System.out.println("Enrollment found. Proceed to update.");
-                return;
+                index = i;
+                break;
             }
         }
-        System.out.println("Enrollment ID not found.");
+        if (index == -1){
+            System.out.println("Enrollment ID not found.");
+            return;
+        }
+
+        Enrollment old = enrollments[index];
+        System.out.println("Enrollment found. Proceed to update.\n");
+        String newCourse = input.readCourseCode("Enter new course code: ");
+        if (old instanceof UndergraduateEnrollment) {
+            String newProgram = input.readString("Enter new program name: ");
+            int newYear = input.readInt("Enter new study year: ");
+            enrollments[index] = new UndergraduateEnrollment(old.getID(), newCourse, old.getStudent(), old.getSem(), newProgram, newYear);
+        } else if (old instanceof PostgraduateEnrollment) {
+            String newResearchArea = input.readString("Enter new research area: ");
+            String newSupervisorName = input.readString("Enter new supervisor name: ");
+            enrollments[index] = new PostgraduateEnrollment(old.getID(), newCourse, old.getStudent(), old.getSem(), newResearchArea, newSupervisorName);
+        }
+        
     }
 
 
@@ -95,10 +129,10 @@ public void displayEnrollment(int filterType) {
             filterValue = input.readString("Enter student name: ");
             break;
         case 2:
-            filterValue = input.readNonEmpty("Enter semester: ");
+            filterValue = input.readCourseCode("Enter course code: ");
             break;
         case 3:
-            filterValue = input.readCourseCode("Enter course code: ");
+            filterValue = input.readNonEmpty("Enter semester: ");
             break;
         case 4:
             filterValue = input.readNonEmpty("Enter level (UG/PG): ").toLowerCase(); // Normalize to lowercase for comparison

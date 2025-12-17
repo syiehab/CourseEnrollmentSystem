@@ -1,8 +1,6 @@
-    // import java.util.Scanner;
 
     public class Main{
 
-        // static Scanner sc = new Scanner(System.in);
         static EnrollmentManager manager = new EnrollmentManager();
         static InputManager input = new InputManager();
         public static void main(String[] args) {
@@ -10,8 +8,8 @@
             System.out.println("Welcome to Course Enrollment");
             System.out.println("Please choose the options below");
 
-            
-            manager.addTestData(); // Add this line to include test data
+            manager.addTestData(); // Add test data
+
             while (true) {
                 manager.showMenu();
                 choice = input.readInt("");
@@ -34,19 +32,12 @@
                     System.out.println("5. All");
                     int filterType = input.readInt("Enter your choice: ");
                     manager.displayEnrollment(filterType);
-
-                
                     break;
                 case 5:
-                    
-                    break;
-
-                case 0:
                     System.out.println("Thank you for using this system");
                     return;
                 default:
                     System.out.println("The option is invalid");           
-                    choice = input.readInt("Choose: ");
                 }
 
             }
