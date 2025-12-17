@@ -15,7 +15,8 @@ public class EnrollmentManager {
         System.out.println("2. Delete Enrollment");
         System.out.println("3. Update Enrollment");
         System.out.println("4. View Enrollments");
-        System.out.println("5. Exit");
+        System.out.println("5. Display Statistics");
+        System.out.println("6. Exit");
         System.out.print("Choose: ");
     }
 
@@ -179,7 +180,7 @@ public void displayEnrollment(int filterType) {
 
         if (matches){
             num += 1;
-            if (!found) {
+            if (num == 1) {
                 System.out.println("\n\n====Filtered Enrollment List====");
                 found = true;
             }
@@ -197,33 +198,26 @@ public void displayEnrollment(int filterType) {
                 return;
             }
 
-            System.out.println("====All the enrollment list====");
+            System.out.println("\n\n====All the enrollment list====");
             for(int i =0; i<count; i++) {
-                System.out.println("------Record " + (i + 1) + " ------");
+                System.out.println("\n------Record " + (i + 1) + " ------");
                 System.out.println(enrollments[i]);
             }
         }
 
 
-    public void searchByCourceCode(){
-        String id = input.readEnrollID("Enter your course code: ");
-        for (int i = 0; i < count; i++) {
-            if (enrollments[i].getCourse().equals(id)) {
-                System.out.println(enrollments[i]);
-                return;
-            }
-        }
-        System.out.println("Course code not found! ");
-    }
-
-    public void searchByStudentName(){
-        String name = input.readString("Enter your name: ");
+    public void displayStatistics(){
+        int pgCount = 0;
+        int ugCount = 0;
         for (int i = 0; i < count; i++){
-            if (enrollments[i].getStudent().toUpperCase().equals(name.toUpperCase())){
-                System.out.println(enrollments[i]);
-                return;
+            if (enrollments[i] instanceof PostgraduateEnrollment){
+                pgCount++;
+            } else if (enrollments[i] instanceof UndergraduateEnrollment){
+                ugCount++;
             }
         }
-        System.out.println("Student name not found! ");
+        System.out.println("Total Undergraduate Enrollments: " + ugCount);
+        System.out.println("Total Postgraduate Enrollments: " + pgCount);
+
     }
 }

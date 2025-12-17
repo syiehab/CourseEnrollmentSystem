@@ -34,6 +34,9 @@
                     manager.displayEnrollment(filterType);
                     break;
                 case 5:
+                    manager.displayStatistics();
+                    break;
+                case 6:
                     System.out.println("Thank you for using this system");
                     return;
                 default:
